@@ -21,6 +21,15 @@ Import each `.json` via n8n (Workflows -> Import from File), then set the enviro
 
 Checksums: `CHECKSUMS.txt`
 
+## Free samples vs. paid outcome
+
+The workflow JSONs in this repository are free samples you can import to see the quality of implementation.
+
+- **Free (this repo):** 11 importable workflows, test scripts, docs.
+- **Paid (done-for-you):** scoped install, configuration, handover video, tests on your real webhook, and 30-day support.
+
+The same templates are also available under a free download from the Gumroad listing; what you pay for is support + install certainty, not the JSON files themselves.
+
 ## Request help or install service
 
 Need it installed/configured? Open a GitHub Issue with the included template; reply within one business day with a scoped quote (€99 starter, €249 growth, custom from €499).
