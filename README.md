@@ -35,6 +35,12 @@ Beta / questions / custom build: open an issue in this repo.
 
 This README acts as the public demand log; purchase link: https://flowcraftpro.gumroad.com/l/n8n-workflows
 
+## Quick start (60 seconds)
+
+1. Open n8n -> Workflows -> Import from File -> pick any JSON, e.g. customer_support_triage.json.
+2. Set env vars in n8n (or replace the {{ $vars.X }} placeholders) for at least one target webhook. A https://webhook.site/ URL works for a dry run.
+3. Click Execute Workflow, confirm the expected payload, then activate.
+
 ## Need it installed for you?
 
 Open an Issue titled `help wanted: <workflow or endpoint>` with a short description of your current setup, and I'll reply with a scoped installation quote (€99 starter, €249 growth pack, custom from €499). All quotes are scoped and fixed-price. The 11 workflows above are the proof-of-work, not the whole offering.
