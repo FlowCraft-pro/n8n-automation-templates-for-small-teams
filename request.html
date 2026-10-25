@@ -1,0 +1,49 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request n8n setup help</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;line-height:1.6;color:#111}
+label{display:block;font-weight:700;margin-top:16px}
+input,textarea,select{width:100%;padding:10px;border:1px solid #ccc;border-radius:8px;margin-top:6px;font:inherit}
+button{margin-top:20px;padding:12px 16px;border:0;border-radius:8px;background:#0b63ce;color:#fff;font:inherit;cursor:pointer}
+a{color:#0b63ce}
+.card{border:1px solid #ddd;border-radius:12px;padding:16px;margin:16px 0}
+</style>
+</head>
+<body>
+<h1>Request n8n automation setup help</h1>
+<p>This form creates a prefilled GitHub issue in the public service repository. No private data is sent unless you include it.</p>
+<form id="requestForm">
+<label for="automation">Automation needed</label>
+<textarea id="automation" required placeholder="Example: lead form -> Airtable -> Slack alert; invoice follow-up every weekday at 9am."></textarea>
+<label for="budget">Budget band</label>
+<select id="budget" required>
+<option>Under EUR 100</option>
+<option selected>EUR 100-249</option>
+<option>EUR 250+</option>
+<option>Not sure yet</option>
+</select>
+<label for="instance">n8n instance URL (optional)</label>
+<input id="instance" placeholder="cloud link or self-hosted domain">
+<label for="notes">Endpoint/webhook destination (optional)</label>
+<textarea id="notes" placeholder="CRM webhook, Slack webhook, email provider, etc."></textarea>
+<button type="submit">Open service request issue</button>
+</form>
+<p>Direct links: <a href="https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/discussions/1">discussion</a> · <a href="https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams">repository</a>.</p>
+<script>
+document.getElementById('requestForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const automation = document.getElementById('automation').value.trim();
+  const budget = document.getElementById('budget').value;
+  const instance = document.getElementById('instance').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+  const body = 'What automation are you trying to build?\n\n' + automation + '\n\nBudget band: ' + budget + '\n\nn8n instance URL: ' + (instance || 'Not provided') + '\n\nNotes: ' + (notes || 'None');
+  const url = 'https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/issues/new?template=service-request.yml&title=' + encodeURIComponent('[help] ' + automation.slice(0,80)) + '&body=' + encodeURIComponent(body);
+  window.open(url, '_blank');
+});
+</script>
+</body>
+</html>
