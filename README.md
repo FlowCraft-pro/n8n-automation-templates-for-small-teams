@@ -21,6 +21,12 @@ Import each `.json` via n8n (Workflows -> Import from File), then set the enviro
 
 Checksums: `CHECKSUMS.txt`
 
+## Request help or install service
+
+Need it installed/configured? Open a GitHub Issue with the included template; reply within one business day with a scoped quote (€99 starter, €249 growth, custom from €499).
+
+---
+
 ## Feedback wanted
 
 11 tested n8n workflows here (core nodes only). Would these save you time? Open an Issue titled 'template request: <your automation>' with the problem you are solving, and I'll prioritize a battle-tested version.
