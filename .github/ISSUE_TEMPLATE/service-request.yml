@@ -1,0 +1,37 @@
+name: Service request / quote
+description: Request scoped n8n setup/automation help based on the published templates.
+title: "[help] "
+labels: ["service-request"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What automation are you trying to build?
+      description: Example: "Lead form -> Airtable -> Slack alert; or missed-call SMS; invoice follow-up."
+    validations:
+      required: true
+  - type: dropdown
+    id: budget
+    attributes:
+      label: Budget band
+      options:
+        - Under €100
+        - €100-€249
+        - €250+
+        - Not sure yet
+    validations:
+      required: true
+  - type: input
+    id: n8n_url
+    attributes:
+      label: Your n8n instance URL
+      description: "Optional. E.g., cloud link or self-hosted domain."
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: "Include your preferred endpoint/webhook destination if known."
+    validations:
+      required: false

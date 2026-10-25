@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Service request / install help
+    url: https://flowcraftpro.gumroad.com/l/n8n-workflows
+    about: Purchase the template pack or request a quote.
+  - name: Workflow request
+    url: https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/issues/new?template=service-request.yml
+    about: Request a new install/service.
