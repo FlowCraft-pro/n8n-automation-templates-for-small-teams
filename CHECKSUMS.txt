@@ -1,2 +1,0 @@
-91d39ccf5dac424078ee65dd146389829cc2ae9a5b47a43fc519e5514d4e2ada *n8n_product/n8n-templates-v1.zip
-b03875a19b3117bf310a75a86c33a469c1d9ba669019aee1d38c5aed1feb4bbf *product/ai-prompt-pack-v1.zip
