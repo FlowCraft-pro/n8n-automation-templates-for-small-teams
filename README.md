@@ -2,26 +2,17 @@
 
 Keywords: n8n workflow templates, n8n automation, lead capture automation, invoice reminder workflow, customer support triage, webhook to Slack, weekly metrics email, small business automation, import-ready n8n JSON.
 
-## Free samples (2 workflows)
-This repository contains **2 free, import-ready workflow templates** you can use today to verify quality and import behavior before buying the full pack.
+## Free samples
+This repository no longer ships workflow JSON files. The free samples concept has been retired to avoid publishing paid assets.
 
-- `lead_capture_and_auto-reply.json` — validates an incoming lead, then forwards it to your CRM webhook (CRM_WEBHOOK_URL).
-- `webhook_to_slack_notifier.json` — receives a webhook payload and posts a formatted message to Slack (SLACK_WEBHOOK_URL).
-
-Each uses only core n8n nodes. Import via Workflows → Import from File, configure 2 variables, and execute manually.>
+The complete import-tested pack (11 workflows) is available via Gumroad: https://flowcraftpro.gumroad.com/l/n8n-workflows (EUR 29).>
 
 ## Full pack (Gumroad — €29)
 The complete set of **11 production-ready workflows** (this free sample set plus 9 more: invoice reminder, support triage, daily standup, weekly metrics, webhook logger, customer feedback collector, out-of-office notice, social publisher, and Calendly booking logger) is available as a single download:
 - Buy: https://flowcraftpro.gumroad.com/l/n8n-workflows
 
-## 60-second import test (free sample)
-1. Import `webhook_to_slack_notifier.json` into n8n.
-2. Set `SLACK_WEBHOOK_URL` to a test endpoint (e.g., webhook.site).
-3. Execute manually or POST:
-   ```json
-   { "message": "hello from n8n" }
-   ```
-4. Confirm the message arrives at your test endpoint.
+## Purchase and proof of quality
+The free samples are no longer included. Quality claims are based on structural validation only (JSON parse, node/connection resolution, `active=false`); live import should be verified by the buyer using their n8n version. A 60-second test checklist is included in the Gumroad package.
 
 ## Methodology / scope notes
 - All workflows use placeholder webhooks (`{{ $vars.X }}`); no credentials are included.
