@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Automation Guide for Small Teams</title>
+<style>
+body{font-family:system-ui,Arial,sans-serif;max-width:860px;margin:40px auto;padding:0 16px;line-height:1.6;color:#111}
+h1,h2{margin-top:28px}
+code{background:#f4f4f4;padding:2px 6px;border-radius:4px}
+ul{padding-left:20px}
+a{color:#0b63ce}
+.card{border:1px solid #ddd;border-radius:12px;padding:16px;margin:16px 0}
+</style>
+<title>n8n Automation Guide for Small Teams</title>
+</head>
+<body>
+<h1>Practical n8n Automation Paths for Small Teams</h1>
+<p>This guide helps small businesses and solopreneurs choose automations that actually save time: lead capture, invoice reminders, support triage, daily digests, webhook intake, and recurring metrics.</p>
+
+<div class="card">
+<h2>1. Lead capture and auto-reply</h2>
+<p><strong>What it does:</strong> accept a form submission, validate email, forward to a CRM webhook, and send an auto-reply. <strong>Variables:</strong> CRM_WEBHOOK_URL, EMAIL_WEBHOOK_URL, CLIENT_EMAIL.</p>
+</div>
+
+<div class="card">
+<h2>2. Invoice payment reminder</h2>
+<p><strong>What it does:</strong> weekday scheduled reminder to a client email endpoint. <strong>Variables:</strong> EMAIL_WEBHOOK_URL, CLIENT_EMAIL.</p>
+</div>
+
+<div class="card">
+<h2>3. Customer support triage</h2>
+<p><strong>What it does:</strong> classify ticket priority and route urgent tickets to Slack and normal tickets to a ticket system. <strong>Variables:</strong> SLACK_WEBHOOK_URL, TICKET_WEBHOOK_URL.</p>
+</div>
+
+<div class="card">
+<h2>4. Daily and weekly reporting</h2>
+<p><strong>What it does:</strong> turn manual status reporting into a scheduled Slack digest or weekly metrics email. <strong>Variables:</strong> SLACK_WEBHOOK_URL, TEAM_EMAIL, REPORT_RECIPIENT, EMAIL_WEBHOOK_URL.</p>
+</div>
+
+<div class="card">
+<h2>5. Webhook intake and alerts</h2>
+<p><strong>What it does:</strong> standardize incoming webhooks, log rows, and send Slack alerts. <strong>Variables:</strong> LOG_WEBHOOK_URL, SLACK_WEBHOOK_URL.</p>
+</div>
+
+<h2>Common failure points</h2>
+<ul>
+<li>Inactive webhook or mismatched path.</li>
+<li>Missing n8n variables ({{ $vars.X }} returns empty).</li>
+<li>Testing production webhooks before development webhook URLs are configured.</li>
+<li>Cron schedules with wrong timezone.</li>
+</ul>
+
+<h2>When to buy setup help</h2>
+<p>If you know the automation you want but do not want to debug Webhook, HTTP Request, Code, and environment variables, request a scoped fixed-price setup.</p>
+<ul>
+<li>Starter: EUR 99 — 1 workflow, 48h handover</li>
+<li>Growth: EUR 249 — 3 workflows, priority support</li>
+<li>Custom: from EUR 499 — tailored integrations</li>
+</ul>
+<p><a href="https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/discussions/1">Start a discussion</a> or <a href="https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/issues/new?template=service-request.yml">open a service request</a>.</p>
+
+<h2>Related</h2>
+<p><a href="https://flowcraftpro.gumroad.com/l/n8n-workflows">Template pack EUR 29 on Gumroad</a></p>
+<p><a href="/">Back to storefront</a></p>
+</body>
+</html>
