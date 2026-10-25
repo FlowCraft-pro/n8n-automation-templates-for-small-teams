@@ -21,7 +21,11 @@ The free samples are no longer included. Quality claims are based on structural 
 - Workflows are delivered inactive (`active=false`) by design; test before activating.
 
 ## Service (installation / handover)
-Need it installed or configured? Open a **GitHub Issue** with the included template (button below) to request a scoped quote:
+Need it installed or configured? Start here:
+- Discussion: https://github.com/FlowCraft-pro/n8n-automation-templates-for-small-teams/discussions/1
+- Quote issue template: open a "Service request" issue in this repo.
+
+Packages:
 - Starter: €99 (1 workflow installed, 48h handover)
 - Growth: €249 (3 workflows, 48h → 72h)
 - Custom: from €499 (tailored integrations)
