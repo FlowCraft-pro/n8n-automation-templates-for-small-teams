@@ -1,0 +1,86 @@
+{
+  "name": "Daily Standup Digest",
+  "nodes": [
+    {
+      "id": "c04f3e92-77ef-402f-8b3a-4737f355045f",
+      "name": "Daily 8am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "adecaef0-31bd-4175-abc1-e8127a5baf25",
+      "name": "Build Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const d=new Date().toISOString().slice(0,10);\nreturn [{json:{date:d,text:'Daily standup digest for '+d+'. Review blockers and top 3 priorities.'}}];"
+      }
+    },
+    {
+      "id": "07f91ab3-ceb2-4a66-92ad-647c1f128572",
+      "name": "Post to Slack",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.SLACK_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"text\":\"{{ $json.text }}\"}"
+      }
+    }
+  ],
+  "connections": {
+    "Daily 8am": {
+      "main": [
+        [
+          {
+            "node": "Build Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Digest": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "description": "Weekday 08:00 builds a digest and posts to Slack webhook. Configure SLACK_WEBHOOK_URL."
+}

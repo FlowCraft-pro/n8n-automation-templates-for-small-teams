@@ -1,0 +1,101 @@
+{
+  "name": "Out-of-Office Auto Notice",
+  "nodes": [
+    {
+      "id": "2f653423-bf4d-4854-8b33-122110e254ce",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "31a826f0-9ad4-4726-be9d-39b0468c3897",
+      "name": "Build OOO Notice",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "afbb6986-a20a-4e32-9e0e-bedc0afc2f11",
+              "name": "subject",
+              "value": "Out of office notice",
+              "type": "string"
+            },
+            {
+              "id": "8a6c7d78-0ddc-44a6-a36b-5d8e656efb48",
+              "name": "body",
+              "value": "I am out of office this week. For urgent matters, contact support@example.com.",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "da02c5f5-5b3d-4915-8e46-3c6941d122a3",
+      "name": "Send Notice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.EMAIL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"to\":\"{{ $vars.TEAM_EMAIL }}\",\"subject\":\"{{ $json.subject }}\",\"body\":\"{{ $json.body }}\"}"
+      }
+    }
+  ],
+  "connections": {
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Build OOO Notice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build OOO Notice": {
+      "main": [
+        [
+          {
+            "node": "Send Notice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "description": "Weekly automated OOO notice email. Configure EMAIL_WEBHOOK_URL and TEAM_EMAIL."
+}

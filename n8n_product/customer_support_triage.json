@@ -1,0 +1,148 @@
+{
+  "name": "Customer Support Triage",
+  "nodes": [
+    {
+      "id": "1dc22df9-a7ec-43e9-b4a7-961d446eee14",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "support-triage",
+        "responseMode": "onReceived",
+        "responseData": "allEntries"
+      }
+    },
+    {
+      "id": "79ea4670-9154-4418-b40b-14d7aa63dc07",
+      "name": "Classify",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const t=($input.first().json.body && $input.first().json.body.message || '').toLowerCase();\nconst urgent=/urgent|down|broken|error|refund|angry/.test(t);\nreturn [{json:{...($input.first().json.body||{}), priority: urgent?'high':'normal', tag: urgent?'urgent':'general'}}];"
+      }
+    },
+    {
+      "id": "a5dd8db2-b27c-41ff-8173-3e0fbcfac5bb",
+      "name": "Is Urgent?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "f89ec865-c009-464f-80f4-523bed55653f",
+              "leftValue": "={{ $json.priority }}",
+              "rightValue": "high",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "59a88994-a39a-4f39-8f42-776b4b5b7a49",
+      "name": "Notify Slack (urgent)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        200
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.SLACK_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"text\":\"URGENT ticket: {{ $json.message }} (from {{ $json.email }})\"}"
+      }
+    },
+    {
+      "id": "a920de6f-1622-4609-9dc1-9115399ca558",
+      "name": "Log Normal",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        420
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.TICKET_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"priority\":\"normal\",\"message\":\"{{ $json.message }}\",\"email\":\"{{ $json.email }}\"}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Classify",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classify": {
+      "main": [
+        [
+          {
+            "node": "Is Urgent?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Urgent?": {
+      "main": [
+        [
+          {
+            "node": "Notify Slack (urgent)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Normal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "description": "Webhook receives a ticket; code node classifies urgent vs normal; routes to Slack or ticket log. Configure SLACK_WEBHOOK_URL and TICKET_WEBHOOK_URL."
+}

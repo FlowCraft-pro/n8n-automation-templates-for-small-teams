@@ -1,0 +1,101 @@
+{
+  "name": "Invoice Payment Reminder",
+  "nodes": [
+    {
+      "id": "290a60c1-aad2-4cc7-9d45-f552112979fb",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        250,
+        300
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1-5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "51c35939-674f-4a3c-af3b-f5822ca748df",
+      "name": "Build Reminder",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        300
+      ],
+      "parameters": {
+        "mode": "manual",
+        "duplicateItem": false,
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d8a776b-06fd-4b1f-ac65-d4fafcd03956",
+              "name": "subject",
+              "value": "Invoice reminder",
+              "type": "string"
+            },
+            {
+              "id": "ff9436ca-0467-4b5e-9654-ae210fb208dc",
+              "name": "body",
+              "value": "Please remember to settle your pending invoice by Friday.",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "66d8e529-e57d-4db7-826e-10dc5d7ee7e3",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        300
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.EMAIL_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"to\":\"{{ $vars.CLIENT_EMAIL }}\",\"subject\":\"{{ $json.subject }}\",\"body\":\"{{ $json.body }}\"}"
+      }
+    }
+  ],
+  "connections": {
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Build Reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reminder": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "description": "Weekday 09:00 cron sends a reminder email via your email webhook. Configure CLIENT_EMAIL and EMAIL_WEBHOOK_URL."
+}
