@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://flowcraft-pro.github.io/n8n-automation-templates-for-small-teams/sitemap.xml
+
