@@ -15,6 +15,8 @@ Included:
 - Out-of-Office Auto Notice
 - Calendly Booking Logger
 
+Buy: https://flowcraftpro.gumroad.com/l/n8n-workflows
+
 Import each `.json` via n8n (Workflows -> Import from File), then set the environment variables listed in `n8n_product/README.md` or replace `{{ $vars.X }}` placeholders.
 
 Checksums: `CHECKSUMS.txt`
